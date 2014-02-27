@@ -1,0 +1,38 @@
+Message-ID: <14202661.1075855696495.JavaMail.evans@thyme>
+Date: Mon, 12 Mar 2001 03:48:00 -0800 (PST)
+From: phillip.allen@enron.com
+To: matt.smith@enron.com
+Subject: matt Smith
+Mime-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
+X-From: Phillip K Allen
+X-To: Matt.Smith@enron.com
+X-cc: 
+X-bcc: 
+X-Folder: \Phillip_Allen_June2001\Notes Folders\All documents
+X-Origin: Allen-P
+X-FileName: pallen.nsf
+
+---------------------- Forwarded by Phillip K Allen/HOU/ECT on 03/12/2001 
+11:47 AM ---------------------------
+
+
+Mike Grigsby
+03/07/2001 08:05 PM
+To: Phillip K Allen/HOU/ECT@ECT
+cc:  
+Subject: matt Smith
+
+Let's have Matt start on the following:
+
+Database for hourly storage activity on Socal.  Begin forecasting hourly and 
+daily activity by backing out receipts, using ISO load actuals and backing 
+out real time imports to get in state gen numbers for gas consumption, and 
+then using temps to estimate core gas load.  Back testing once he gets 
+database created should help him forecast core demand.
+
+Update Socal and PG&E forecast sheets.  Also, break out new gen by EPNG and 
+TW pipelines.
+
+Mike

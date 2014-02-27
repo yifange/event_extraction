@@ -1,0 +1,55 @@
+Message-ID: <16698459.1075855670826.JavaMail.evans@thyme>
+Date: Mon, 12 Jun 2000 03:56:00 -0700 (PDT)
+From: phillip.allen@enron.com
+To: matthew.lenhart@enron.com
+Subject: Thoughts on Presentation
+Mime-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
+X-From: Phillip K Allen
+X-To: Matthew Lenhart
+X-cc: 
+X-bcc: 
+X-Folder: \Phillip_Allen_Dec2000\Notes Folders\All documents
+X-Origin: Allen-P
+X-FileName: pallen.nsf
+
+---------------------- Forwarded by Phillip K Allen/HOU/ECT on 06/12/2000 
+10:55 AM ---------------------------
+   
+	
+	
+	From:  Tim Belden                           06/11/2000 07:26 PM
+	
+
+To: Phillip K Allen/HOU/ECT@ECT
+cc:  
+Subject: Thoughts on Presentation
+
+It is a shame that the CAISO doesn't provide actual generation by unit.  The 
+WSCC data, which is dicey and we don't have until July 1999, and the CEMMS, 
+which comes on a delay, are ultimately our best sources.  For your purposes 
+the CAISO may suffice.  I think that you probably know this already, but 
+there can be a siginificant difference between "scheduled" and "actual" 
+generation.  You are pulling "scheduled."  If someone doesn't schedule their 
+generation and then generates, either instructed or uninstructed, then you 
+will miss that.  You may also miss generation of the northern california 
+munis such as smud who only schedule their net load to the caiso.  That is, 
+if they have 1500 MW of load and 1200 MW of generation, they may simply 
+schedule 300 MW of load and sc transfers or imports of 300 MW.  Having said 
+all of that, it is probably close enough and better than your alternatives on 
+the generation side.
+
+On the load side I think that I would simply use CAISO actual load.  While 
+they don't split out NP15 from SP15, I think that using the actual number is 
+better than the "scheduled" number.  The utilities play lots of game on the 
+load side, usually under-scheduling depending on price.
+
+I think the presentation looks good.  It would be useful to share this with 
+others up here once you have it finished.  I'd like to see how much gas 
+demand goes up with each additional GW of gas-generated electricity, 
+especially compared to all gas consumption.  I was surprised by how small the 
+UEG consumption was compared to other uses.  If it is the largest marginal 
+consumer then it is obviously a different story.
+
+Let's talk.

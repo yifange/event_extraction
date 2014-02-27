@@ -5,14 +5,18 @@ import os
 import porter2
 from stoplist import Commonwords
 from settings import *
-
+import tagger
+import time
 
 class Tokenizer:
     payload_toks = []
     subject_toks = []
     tok_freq = {}
+    tok_tagged_freq = {}
     payload = ""
     payload_trimmed = ""
+
+    payload_toks_tagged_trimmed = []
     subject = ""
     frm = ""
     to = ""
@@ -20,13 +24,16 @@ class Tokenizer:
     commonwords = None
     freq = []
 
-    def __init__(self, raw_msg, commonwords):
+    def __init__(self, raw_msg, tagger, commonwords=None):
         self.msg = email.message_from_string(raw_msg)
         self.frm = self.msg["From"]
         self.to = self.msg["To"]
         self.subject = self.msg["Subject"]
         self.payload = self.msg.get_payload()
         self.commonwords = commonwords
+        self.tagger = tagger
+        self.tok_freq = {}
+        self.tok_tagged_freq = {}
 
     def __stem(self, tok):
         tok = re.sub(r"[\.|,|:|\?|\"|\'|;|!]+$", "", tok)
@@ -44,8 +51,9 @@ class Tokenizer:
         url_regex = re.compile(r"((([A-Za-z]{3,9}:(?:\/\/)?)(?:[\-;:&=\+\$,\w]+@)?[A-Za-z0-9\.\-]+|(?:www\.|[\-;:&=\+\$,\w]+@)[A-Za-z0-9\.\-]+)((?:\/[\+~%\/\.\w\-]*)?\??(?:[\-\+=&;%@.\w]*)#?(?:[\w]*))?)")
         if url_regex.search(tok):
             return True
-        if re.match(r"[^a-zA-Z]+", tok):
-            return True
+        # if re.match(r"[^a-zA-Z]+", tok): #     return True
+
+
 
     def __trim_payload(self):
         lineno = 0
@@ -94,29 +102,68 @@ class Tokenizer:
         # print common
         self.subject_toks = []
         self.payload_toks = []
-        for tok in self.subject.split():
-            if not tok in common:
-                self.subject_toks.append(tok)
+        if self.subject:
+            for tok in self.subject.split():
+                if not tok in common:
+                    self.subject_toks.append(tok)
+
 
         for tok in self.payload_trimmed.split():
             if not tok in common:
                 if not self.__token_filter(tok):
                     self.payload_toks.append(self.__stem(tok))
 
-
+        toks_tagged = self.tagger.tag_text(self.payload_trimmed)
+        for pair in toks_tagged:
+            if not pair["class"]:
+                if pair["content"] in punc:
+                    continue
+                if pair["content"] in common:
+                    continue
+            self.payload_toks_tagged_trimmed.append(pair)
 
     def __compute_freq(self):
         self.__tokenizer()
+
+        # untagged
         for tok in self.payload_toks:
-            # print str(tok)
             if tok.lower() in self.tok_freq:
-                # print str(tok) + 'plus'
                 self.tok_freq[tok.lower()] += 1
             else:
                 self.tok_freq[tok.lower()] = 1
 
-    def get_freq(self):
-        self.__compute_freq()
-        # print str(self.tok_freq) + '\n'
-        return self.tok_freq
+        # tagged
+        for pair in self.payload_toks_tagged_trimmed:
+            if not pair["class"]:
+                tok = pair["content"]
+                if tok.lower() in self.tok_tagged_freq:
+                    self.tok_tagged_freq[tok.lower()] += 1
+                else:
+                    self.tok_tagged_freq[tok.lower()] = 1
+            else:
+                tok = pair["class"]
+                if tok in self.tok_tagged_freq:
+                    self.tok_tagged_freq[tok] += 2
+                else:
+                    self.tok_tagged_freq[tok] = 2
 
+
+    def get_freq(self, tagged=True):
+        self.__compute_freq()
+        if tagged:
+            return self.tok_tagged_freq
+        else:
+            return self.tok_freq
+
+    def get_toks(self, tagged=True):
+        if tagged:
+            return self.payload_toks_tagged_trimmed
+        else:
+            return self.payload_toks
+
+if __name__ == "__main__":
+    m = open("test", "r").read()
+    tag = tagger.Tagger()
+    time.sleep(3)
+    t = Tokenizer(m, tag)
+    t.get_freq()
